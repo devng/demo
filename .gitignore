@@ -3,3 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 .cache
+
+#Java
+bin
+build
+classes/*
+.gradle/
+.idea/
