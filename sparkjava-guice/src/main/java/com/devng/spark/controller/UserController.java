@@ -6,11 +6,14 @@ import static spark.Spark.*;
 import com.devng.spark.dto.MessageDto;
 import com.devng.spark.dto.UserDto;
 import com.devng.spark.service.UserService;
-import com.google.inject.Inject;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Handles all user related requests.
  */
+@Singleton
 public class UserController implements SparkController {
 
 	private final UserService userService;

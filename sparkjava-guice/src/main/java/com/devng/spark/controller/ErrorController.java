@@ -5,6 +5,9 @@ import static spark.Spark.*;
 
 import com.devng.spark.dto.MessageDto;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class ErrorController implements SparkController {
 
 	ErrorController() {

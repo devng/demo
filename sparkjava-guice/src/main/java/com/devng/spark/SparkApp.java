@@ -6,13 +6,14 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.devng.spark.controller.ErrorController;
+import com.devng.spark.controller.RequestInfoController;
 import com.devng.spark.controller.SparkController;
 import com.devng.spark.controller.UserController;
 import com.devng.spark.dto.MessageDto;
-import com.google.inject.Inject;
 
 import spark.servlet.SparkApplication;
 
@@ -22,7 +23,7 @@ public class SparkApp implements SparkApplication {
 
 	private String helloMessage;
 
-	// note that we cannot use constructor injection in the SparApplication class because then we cannot create a servlet context
+	// Note that we cannot use constructor injection in the SparApplication class because then we cannot create a servlet context
 
 	@Inject
 	void setHelloMessage(@Named("hello-message") final String helloMessage) {
@@ -32,6 +33,11 @@ public class SparkApp implements SparkApplication {
 	@Inject
 	void setUserController(final UserController userController) {
 		appControllers.add(userController);
+	}
+
+	@Inject
+	void setRequestInfoController(final RequestInfoController requestInfoController) {
+		appControllers.add(requestInfoController);
 	}
 
 	@Inject

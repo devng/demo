@@ -3,8 +3,6 @@ package com.devng.spark.guice;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 
-import com.devng.spark.MainModule;
-import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import spark.servlet.SparkApplication;
@@ -12,19 +10,17 @@ import spark.servlet.SparkFilter;
 
 public class SparkGuiceFilter extends SparkFilter {
 
-	private Injector injector = null;
+	private static final String INJECTOR_NAME = Injector.class.getName();
 
 	@Override
 	protected SparkApplication[] getApplications(final FilterConfig filterConfig) throws ServletException {
 		final SparkApplication[] applications = super.getApplications(filterConfig);
 
-		if (this.injector == null) {
-			this.injector = Guice.createInjector(new MainModule());
-		}
+		final Injector injector = (Injector) filterConfig.getServletContext().getAttribute(INJECTOR_NAME);
 
-		if (applications != null && applications.length != 0) {
+		if (applications != null) {
 			for (SparkApplication application : applications) {
-				this.injector.injectMembers(application);
+				injector.injectMembers(application);
 			}
 		}
 

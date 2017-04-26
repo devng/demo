@@ -6,9 +6,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.devng.spark.dto.UserDto;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class UserServiceInMemoryImpl implements UserService {
+
+	private static final Logger log = LoggerFactory.getLogger(UserServiceInMemoryImpl.class);
 
 	private final List<UserDto> allUsers;
 
@@ -65,6 +73,7 @@ public class UserServiceInMemoryImpl implements UserService {
 		try {
 			idLong = Long.parseLong(id);
 		} catch (NumberFormatException ex) {
+			log.error("Invalid user id number", ex);
 			throw new IllegalArgumentException("User id must be a number.");
 		}
 		return allUsers.stream().filter(e -> e.getId().equals(idLong)).findFirst().orElse(null);

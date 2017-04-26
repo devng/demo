@@ -13,7 +13,7 @@ public class MainModule extends AbstractModule {
 	@Provides
 	@Singleton
 	@Named("hello-message")
-	public String welcomeMessage() {
+	public String helloMessage() {
 		return "Hello from Spark using Guice.";
 	}
 

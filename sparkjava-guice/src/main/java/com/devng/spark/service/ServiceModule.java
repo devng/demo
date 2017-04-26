@@ -1,7 +1,8 @@
 package com.devng.spark.service;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
+
+import javax.inject.Singleton;
 
 public class ServiceModule extends AbstractModule {
 

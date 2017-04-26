@@ -2,6 +2,22 @@
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		 version="3.0">
 
+	<!-- This listener makes sure we use only one injector in all of our filters, see https://github.com/google/guice/wiki/ServletModule -->
+	<listener>
+		<listener-class>com.devng.spark.guice.SparkGuiceServletContextListener</listener-class>
+	</listener>
+
+	<!-- Use Guice and Spark together, first we need a Guice filter, see https://github.com/google/guice/wiki/Servlets -->
+	<filter>
+		<filter-name>GuiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GuiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Then we need a custom Spark Filter which uses the Guice injector to inject the members of the Spark app. -->
 	<filter>
 		<filter-name>SparkGuiceFilter</filter-name>
 		<filter-class>com.devng.spark.guice.SparkGuiceFilter</filter-class>
