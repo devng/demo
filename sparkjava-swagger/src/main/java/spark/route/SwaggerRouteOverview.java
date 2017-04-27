@@ -44,7 +44,7 @@ public class SwaggerRouteOverview extends RouteOverview {
 		SwaggerPath swaggerPath = pathMap.get(routeEntry.httpMethod.name());
 		if (swaggerPath == null) {
 			swaggerPath = new SwaggerPath();
-			swaggerPath.setConsumes(Arrays.asList(routeEntry.acceptedType));
+			swaggerPath.setConsumes(Arrays.asList("application/json"));
 			swaggerPath.setProduces(Arrays.asList("application/json"));
 			swaggerPath.setParameters(getParameters(routeEntry));
 			swaggerPath.setResponses(getResponses(routeEntry));
@@ -74,6 +74,21 @@ public class SwaggerRouteOverview extends RouteOverview {
 	private static List<SwaggerParameter> getParameters(RouteEntry routeEntry) {
 		final List<SwaggerParameter> parameterList = new ArrayList<>();
 		parameterList.addAll(getPathParameters(routeEntry));
+		parameterList.addAll(getBodyParameters(routeEntry));
+		return parameterList;
+	}
+
+	private static List<SwaggerParameter> getBodyParameters(RouteEntry routeEntry) {
+		final List<SwaggerParameter> parameterList = new ArrayList<>();
+		if (routeEntry.httpMethod == HttpMethod.post || routeEntry.httpMethod == HttpMethod.put || routeEntry.httpMethod == HttpMethod.patch) {
+			final SwaggerParameter parameter = new SwaggerParameter();
+			parameter.setName("body");
+			parameter.setIn(SwaggerParameterLocation.body);
+			final SwaggerSchema schema = new SwaggerSchema();
+			schema.setType("object");
+			parameter.setSchema(schema);
+			parameterList.add(parameter);
+		}
 		return parameterList;
 	}
 

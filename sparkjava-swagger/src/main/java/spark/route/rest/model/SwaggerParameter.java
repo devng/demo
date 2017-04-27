@@ -7,6 +7,8 @@ public class SwaggerParameter {
 
 	private Boolean required;
 
+	private SwaggerSchema schema;
+
 	public String getName() {
 		return name;
 	}
@@ -29,5 +31,13 @@ public class SwaggerParameter {
 
 	public void setRequired(Boolean required) {
 		this.required = required;
+	}
+
+	public void setSchema(SwaggerSchema schema) {
+		this.schema = schema;
+	}
+
+	public SwaggerSchema getSchema() {
+		return schema;
 	}
 }
