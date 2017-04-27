@@ -20,7 +20,6 @@ public class SwaggerRouteOverview extends RouteOverview {
 
 	public static SwaggerJson getSwaggerJson() {
 		final SwaggerJson swaggerJson = new SwaggerJson();
-
 		swaggerJson.setBasePath("/");
 		swaggerJson.setPaths(generateRestPaths(RouteOverview.routes));
 		return swaggerJson;
