@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>User profiles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<h1>User profile</h1>
+
+<div>
+    <p>Id: <span th:text="${id}?: 'N/A'">1</span>.</p>
+    <p>Email: <span th:text="${email}?: 'N/A'">Sebastian</span>.</p>
+    <p>First name: <span th:text="${firstName}?: 'N/A'">Sebastian</span>.</p>
+    <p>Last name: <span th:text="${lastName}?: 'N/A'">Pepper</span>.</p>
+    <p>Age: <span th:text="${age}?: 'N/A'">27</span>.</p>
+</div>
+
+</body>
+
+</html>

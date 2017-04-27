@@ -1,13 +1,14 @@
 package com.devng.spark.dto;
 
-import java.time.LocalDate;
-
+import com.owlike.genson.*;
+import com.owlike.genson.stream.JsonStreamException;
+import com.owlike.genson.stream.ObjectReader;
+import com.owlike.genson.stream.ObjectWriter;
 import spark.ResponseTransformer;
 
-import com.owlike.genson.Genson;
-import com.owlike.genson.GensonBuilder;
-import com.owlike.genson.JsonBindingException;
-import com.owlike.genson.stream.JsonStreamException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class JsonUtil {
 
@@ -31,6 +32,32 @@ public class JsonUtil {
 
 	public static ResponseTransformer json() {
 		return JsonUtil::toJson;
+	}
+
+	private static class LocalDateConverter implements Converter<LocalDate> {
+
+		@Override
+		public void serialize(LocalDate localDate, ObjectWriter objectWriter, Context context) throws Exception {
+			if (localDate == null) {
+				return;
+			}
+			objectWriter.writeString(localDate.format(DateTimeFormatter.ISO_LOCAL_DATE));
+		}
+
+		@Override
+		public LocalDate deserialize(ObjectReader objectReader, Context context) throws Exception {
+
+			final String dateString = objectReader.valueAsString();
+			if (dateString == null || dateString.isEmpty()) {
+				return null;
+			}
+			try {
+				return LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+			} catch (DateTimeParseException ex) {
+				throw new IllegalArgumentException(ex);
+			}
+
+		}
 	}
 
 }

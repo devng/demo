@@ -1,6 +1,11 @@
 package com.devng.spark.dto;
 
+import com.owlike.genson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class UserDto {
@@ -53,6 +58,26 @@ public class UserDto {
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
+	}
+
+	public Integer getAge() {
+		if (birthday != null) {
+			return Period.between(this.birthday, LocalDate.now()).getYears();
+		}
+		return null;
+	}
+
+	@JsonIgnore
+	public Map<String, Object> asMap() {
+		final Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("email", email);
+		map.put("firstName", firstName);
+		map.put("lastName", lastName);
+		map.put("birthday", birthday);
+		map.put("age", getAge());
+
+		return map;
 	}
 
 	@Override
