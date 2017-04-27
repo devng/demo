@@ -1,8 +1,3 @@
-/**
- * This file is part of the source code and related artifacts for eGym Application.
- *
- * Copyright © 2013 eGym GmbH
- */
 package spark.route.rest.model;
 
 public class SwaggerResponse {
