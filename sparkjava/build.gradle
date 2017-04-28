@@ -27,6 +27,7 @@ repositories {
 dependencies {
 	compile group: 'com.sparkjava', name: 'spark-core', version: '2.5.5'
 	compile group: 'com.sparkjava', name: 'spark-template-thymeleaf', version: '2.5.5'
+	compile group: 'org.mvel', name: 'mvel2', version: '2.3.1.Final'
 	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.13'
 	compile group: 'com.owlike', name: 'genson', version: '1.4'
 

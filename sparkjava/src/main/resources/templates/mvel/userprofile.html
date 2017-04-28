@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User profiles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+
+<div class="container">
+    <h2>User profiles (using MVEL)</h2>
+
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+        </tr>
+        @foreach{user : users}
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.email}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.getAge()}</td>
+        </tr>
+        @end{}
+    </table>
+</div>
+</body>
+
+</html>

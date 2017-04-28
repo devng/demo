@@ -5,6 +5,7 @@ import static spark.Spark.*;
 
 import com.devng.spark.dto.MessageDto;
 import com.devng.spark.dto.UserDto;
+import com.devng.spark.mvel.MvelTemplateEngine;
 import com.devng.spark.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,10 @@ public class SparkApp {
 
 	public static void main(final String[] args) {
 		final UserService userService = new UserService();
-		final TemplateEngine templateEngine = new ThymeleafTemplateEngine();
+		final TemplateEngine templateEngineTh = new ThymeleafTemplateEngine("templates/thymeleaf/", ".html");
+		final TemplateEngine templateEngineMvel = new MvelTemplateEngine("templates/mvel/", ".html");
 
-		get("/hello", (req, res) -> "Hello world!", json());
+		get("/hello", (req, res) -> "Hello world!");
 
 		path("/rest/users", () -> {
 			get("", (req, res) -> {
@@ -57,11 +59,17 @@ public class SparkApp {
 		get("/users", (req, res) -> {
 			final List<UserDto> users = userService.getUsers();
 			final Map<String, Object> model = new HashMap<>();
-			model.put("users", users); // use a default
-			final ModelAndView mv = new ModelAndView(model, "userprofile");
+			model.put("users", users);
+			final ModelAndView modelAndView = new ModelAndView(model, "userprofile");
+			final String html;
+			if ("mvel".equals(req.queryParams("engine"))) {
+				html = templateEngineMvel.render(modelAndView);
+			} else {
+				html = templateEngineTh.render(modelAndView);
+			}
 			res.type("text/html");
-			return mv;
-		}, templateEngine);
+			return html;
+		});
 
 		// spark.route.RouteOverview.enableRouteOverview("/"); // DEBUG
 
