@@ -13,6 +13,8 @@ import spark.TemplateEngine;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SparkApp {
 
@@ -52,13 +54,16 @@ public class SparkApp {
 			}, json());
 		});
 
-		get("/users/:id", (req, res) -> {
-			final String id = req.params(":id");
-			final UserDto user = userService.getUserById(id);
-			final ModelAndView mv = new ModelAndView(user != null ? user.asMap() : new HashMap<>(), "userprofile");
+		get("/users", (req, res) -> {
+			final List<UserDto> users = userService.getUsers();
+			final Map<String, Object> model = new HashMap<>();
+			model.put("users", users); // use a default
+			final ModelAndView mv = new ModelAndView(model, "userprofile");
 			res.type("text/html");
 			return mv;
 		}, templateEngine);
+
+		// spark.route.RouteOverview.enableRouteOverview("/"); // DEBUG
 
 		notFound(toJson(new MessageDto("Not found.")));
 

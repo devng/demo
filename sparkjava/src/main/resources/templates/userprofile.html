@@ -6,20 +6,31 @@
 <head>
     <title>User profiles</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 
 <body>
 
-<h1>User profile</h1>
+<div class="container">
+    <h2>User profiles</h2>
 
-<div>
-    <p>Id: <span th:text="${id}?: 'N/A'">1</span>.</p>
-    <p>Email: <span th:text="${email}?: 'N/A'">Sebastian</span>.</p>
-    <p>First name: <span th:text="${firstName}?: 'N/A'">Sebastian</span>.</p>
-    <p>Last name: <span th:text="${lastName}?: 'N/A'">Pepper</span>.</p>
-    <p>Age: <span th:text="${age}?: 'N/A'">27</span>.</p>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}?: 'N/A'">1</td>
+            <td th:text="${user.email}?: 'N/A'">sebastian@mail.com</td>
+            <td th:text="${user.firstName}?: 'N/A'">Sebastian</td>
+            <td th:text="${user.lastName}?: 'N/A'">Pepper</td>
+            <td th:text="${user.age}?: 'N/A'">27</td>
+        </tr>
+    </table>
 </div>
-
 </body>
 
 </html>

@@ -67,19 +67,6 @@ public class UserDto {
 		return null;
 	}
 
-	@JsonIgnore
-	public Map<String, Object> asMap() {
-		final Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("email", email);
-		map.put("firstName", firstName);
-		map.put("lastName", lastName);
-		map.put("birthday", birthday);
-		map.put("age", getAge());
-
-		return map;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
